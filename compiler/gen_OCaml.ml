@@ -2,7 +2,7 @@
 open Printf
 open Ptypes
 open Gencode
-open Camlp4.PreCast
+open Camlp5.PreCast
 open ExtList
 open ExtString
 
@@ -42,7 +42,7 @@ let assumed_subsets opts =
     List.assoc "assume_subsets" opts
   with Not_found -> []
 
-module PrOCaml =Camlp4.Printers.OCaml.Make(Camlp4.PreCast.Syntax)
+module PrOCaml =Camlp5.Printers.OCaml.Make(Camlp5.PreCast.Syntax)
 
 let string_of_ast ?width f ast =
   let b = Buffer.create 256 in
@@ -149,7 +149,7 @@ let bad_option ?msg name v = match msg with
   | None ->
       Printf.ksprintf failwith "Bad OCaml option value for %S: %S" name v
 
-module Caml = Camlp4OCamlParser.Make(Camlp4OCamlRevisedParser.Make(Syntax))
+module Caml = Camlp5OCamlParser.Make(Camlp5OCamlRevisedParser.Make(Syntax))
 
 let parse_string ?(verbose=true) kind entry s =
   try
@@ -831,7 +831,7 @@ let generate_container bindings =
                    c_sig_import_modules = Option.map (sprintf "open %s") sigs;
                }
 
-let loc = Camlp4.PreCast.Loc.mk
+let loc = Camlp5.PreCast.Loc.mk
 
 let maybe_str_item =
   let _loc = loc "<generated code>" in
@@ -1226,7 +1226,7 @@ sig
     Gencode.msg_name ->
     Ptypes.type_options ->
     Gencode.low_level Gencode.message ->
-    Camlp4.PreCast.Ast.str_item * Ast.expr
+    Camlp5.PreCast.Ast.str_item * Ast.expr
 
   val read :
     Gencode.msg_name ->

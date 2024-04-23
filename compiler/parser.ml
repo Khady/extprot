@@ -1,4 +1,4 @@
-open Camlp4.PreCast
+open Camlp5.PreCast
 open Ptypes
 
 (* use fresh module *)
